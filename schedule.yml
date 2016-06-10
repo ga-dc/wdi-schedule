@@ -1,0 +1,19 @@
+- day:
+  - "9 - 12:30":
+    - title: "Intro to WDI"
+    - url: "https://github.com/ga-wdi-lessons/wdi-intro"
+    - lead: ""
+    - support: ""
+  - "2:30 - 5":
+    - title: "Intro to CLI"
+    - url: "https://github.com/ga-wdi-lessons/cli-intro"
+    - lead: "Adrian"
+    - support: "Robin"
+- day:
+  - "9 - 12:30":
+    - title: "Outcomes"
+  - "2:30 - 5":
+    - title: "Git"
+    - url: "https://github.com/ga-wdi-lessons/cli-intro"
+    - lead: "Jesse"
+    - support: "Adrian"
