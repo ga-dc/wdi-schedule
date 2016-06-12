@@ -3,8 +3,19 @@ events = []
 wdi_events = []
 temp = {}
 
-def strftime str
-  str.split("T")[1][0...4]
+def civil_to_est str
+  # 20160524T120000
+  #http://ruby-doc.org/stdlib-2.3.1/libdoc/date/rdoc/DateTime.html#method-c-civil
+  # need to convert a string in civil format to standard EST
+  # TODO: account for DST
+  hour = str[-7,2].to_i
+  min = str[-5,2].to_i
+  year = str[0,4].to_i
+  month = str[4,2].to_i
+  day = str[6,2].to_i
+  offset = "-4" # EST
+  dt = DateTime.new(year, month, day, hour, min).new_offset(offset)
+  time = dt.strftime("%I:%M%p")
 end
 
 File.open("./wdi_cal.ics") do |file|
@@ -53,8 +64,8 @@ def parse_summary str
 end
 
 wdi_events.each do |event|
-  start = strftime(event["DTSTART"])
-  endd = strftime(event["DTEND"])
+  start = civil_to_est(event["DTSTART"])
+  endd = civil_to_est(event["DTEND"])
   info = parse_summary(event["SUMMARY"])
   url = event["DESCRIPTION"][/\"(.*?)\"/, 1] if event["DESCRIPTION"].include?("\<a") # TODO deal with multiple urls
   puts "- day:"
