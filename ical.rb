@@ -67,8 +67,8 @@ wdi_events.each do |event|
   start = civil_to_est(event["DTSTART"])
   endd = civil_to_est(event["DTEND"])
   info = parse_summary(event["SUMMARY"])
-  url = event["DESCRIPTION"][/\"(.*?)\"/, 1] if event["DESCRIPTION"].include?("\<a") # TODO deal with multiple urls
-  puts "- day:"
+  urls = event["DESCRIPTION"].scan(/"(.*?)"/) if event["DESCRIPTION"].include?("\<a")
+  urls && urls.length > 1 ? url = urls.flatten.uniq.join(", ") : url = urls.flatten.uniq[0] if urls
   puts " - #{start} - #{endd}:"
   puts "   title: #{info[0]}"
   puts "   url: #{url}"
