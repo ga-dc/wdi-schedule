@@ -8,18 +8,33 @@ days.each_with_index do |day, index|
   day["day"].each do |events|
     events.each do |time, details|
       title = details["title"]
-      url = details["url"]
+      urls = details["url"].split(",")
       lead = details["lead"]
       support = details["support"]
-      puts "
-      <div class='event'>
-	<h2><a href='#{url}'>#{time}: #{title}</a></h2>
-	<ul>
+      puts "<div class='event'>"
+      puts "<h3>"
+      if urls[0] != ""
+	puts "<a href='#{urls[0]}'>#{title}</a>"
+      else
+        puts "#{title}"
+      end
+      puts "</h3><small>#{time}</small>"
+      if urls.length > 1
+        puts "<ul>"
+        urls.each do |url|
+	  puts "<li><a href='#{url}'>#{url}</a></li>"
+	end
+        puts "</ul>"
+      end
+      if lead != "" && support != ""
+	puts "<ul>
 	  <li>#{lead}</li>
 	  <li>#{support}</li>
 	</ul>
-      </div>"
+	"
+      end
+      puts "</div>"
     end
   end
-  puts "</div>"
+  puts "</div><hr>"
 end

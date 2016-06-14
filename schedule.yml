@@ -40,9 +40,9 @@
      support: " Adrian"
 - day:
   - "08:00AM - 09:00AM":
-     title: ""
+     title: "Homework Due"
      url: "https://github.com/ga-wdi-exercises/to_oz, https://github.com/ga-wdi-exercises/haiku, https://github.com/ga-wdi-exercises/wendy_bite"
-     lead: "x3"
+     lead: ""
      support: ""
   - "03:30PM - 04:30PM":
      title: "Lab: Portfolio Pages"
