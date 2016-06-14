@@ -23,5 +23,3 @@ days.each_with_index do |day, index|
   end
   puts "</div>"
 end
-
-

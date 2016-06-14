@@ -44,6 +44,7 @@ end
 # returns array with event's title, lead, and support
 # NOTE assumes most events are following naming convention: "(Adrian / Jesse) Git Branching"
 def parse_summary str
+  str = str.gsub("\\", "")
   info = []
   if str.include?("/") # lesson
     opi = str.index(/\(/)
@@ -63,20 +64,23 @@ def parse_summary str
   info
 end
 
+new_day = true
+
+wdi_events = wdi_events.sort_by{|event| Date.parse(event["DTSTART"])}
 wdi_events.each do |event|
+  current_day = Date.parse(event["DTSTART"]).strftime("%F")
   start = civil_to_est(event["DTSTART"])
   endd = civil_to_est(event["DTEND"])
   info = parse_summary(event["SUMMARY"])
   urls = event["DESCRIPTION"].scan(/"(.*?)"/) if event["DESCRIPTION"].include?("\<a")
   urls && urls.length > 1 ? url = urls.flatten.uniq.join(", ") : url = urls.flatten.uniq[0] if urls
-  puts " - #{start} - #{endd}:"
-  puts "   title: #{info[0]}"
-  puts "   url: #{url}"
-  puts "   lead: #{info[1]}"
-  puts "   support: #{info[2]}"
+  if new_day != current_day
+    puts "- day:"
+    new_day = current_day
+  end
+  puts "  - \"#{start} - #{endd}\":"
+  puts "     title: \"#{info[0]}\""
+  puts "     url: \"#{url}\""
+  puts "     lead: \"#{info[1]}\""
+  puts "     support: \"#{info[2]}\""
 end
-
-
-
-binding.pry
-puts "puts fixes"
