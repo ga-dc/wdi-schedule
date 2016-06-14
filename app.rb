@@ -1,15 +1,14 @@
 require 'yaml'
 require 'pry'
 
-puts "<link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'>"
-puts "<style>h2 a{color:inherit;}</style>"
 days = YAML.load_file('schedule.yml')
 counter = 0
+start = Date.parse("2016-05-23")
 days.each_with_index do |day, index|
   puts "<div class='day container'>"
-  is_saturday = (Date.today + counter).wday == 6
+  is_saturday = (start + counter).wday == 6
   counter += 2 if is_saturday
-  today = (Date.today + counter).strftime("%A, %m/%d")
+  today = (start + counter).strftime("%A, %m/%d")
   puts "<h2 id='#{index}'><a href='##{index}'>#{today}</a></h2>"
   day["day"].each do |events|
     events.each do |time, details|

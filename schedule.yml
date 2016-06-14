@@ -1,16 +1,4 @@
 - day:
-  - "01:00PM - 04:00PM":
-     title: "Installfest - CR 6"
-     url: ""
-     lead: ""
-     support: ""
-- day:
-  - "01:00PM - 04:00PM":
-     title: "Installfest - CR 6"
-     url: ""
-     lead: ""
-     support: ""
-- day:
   - "09:00AM - 12:30PM":
      title: "Intro to WDI"
      url: "https://github.com/ga-wdi-lessons/wdi-intro"
