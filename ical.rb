@@ -18,13 +18,18 @@ def civil_to_est str
   time = dt.strftime("%I:%M%p")
 end
 
-File.open("./wdi_cal.ics") do |file|
+File.open("wdi_cal.ics") do |file|
+  p file
   file.each do |line|
     if line.match(/BEGIN:VEVENT/)
       temp = {}
     end
+    begin
     key = line.match(/^[A-Z\-]+/)[0]
     value = line.split(key + ":")[1]
+    rescue
+      key, value = nil
+    end
     value = value.gsub("\n", "").gsub("\r", "") if value
     temp[key] = value
     if line.match("END:VEVENT")
@@ -50,9 +55,15 @@ def parse_summary str
     opi = str.index(/\(/)
     cpi = str.index(/\)/)
     fsi = str.index(/\//) # convention: lead before slash, support after
-    info << str[cpi + 2, str.length - 1] # title
-    info << str[opi + 1, fsi - 1] # lead
-    info << str[fsi + 1..cpi-1] # support
+    begin
+      info << str[cpi + 2, str.length - 1] # title
+      info << str[opi + 1, fsi - 1] # lead
+      info << str[fsi + 1..cpi-1] # support
+    rescue
+      info << ""
+      info << ""
+      info << ""
+    end
   elsif str.include?(")") # no support scheduled
     # TODO deal with non-conventional parens in event title
     info << str[str.index(/\)/) +2, str.length - 1]
