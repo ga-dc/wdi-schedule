@@ -85,12 +85,12 @@ wdi_events.each do |event|
   urls = event["DESCRIPTION"].scan(/"(.*?)"/) if event["DESCRIPTION"].include?("\<a")
   urls && urls.length > 1 ? url = urls.flatten.uniq.join(", ") : url = urls.flatten.uniq[0] if urls
   if new_day != current_day
-    puts "- day:"
+    puts "  - day:"
     new_day = current_day
   end
-  puts "  - \"#{start} - #{endd}\":"
-  puts "     title: \"#{info[0]}\""
-  puts "     url: \"#{url}\""
-  puts "     lead: \"#{info[1]}\""
-  puts "     support: \"#{info[2]}\""
+  puts "    - \"#{start} - #{endd}\":"
+  puts "       title: \"#{info[0]}\""
+  puts "       url: \"#{url}\""
+  puts "       lead: \"#{info[1]}\""
+  puts "       support: \"#{info[2]}\""
 end
