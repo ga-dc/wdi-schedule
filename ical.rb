@@ -19,7 +19,6 @@ def civil_to_est str
 end
 
 File.open("wdi_cal.ics") do |file|
-  p file
   file.each do |line|
     if line.match(/BEGIN:VEVENT/)
       temp = {}
